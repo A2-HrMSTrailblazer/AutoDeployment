@@ -6,6 +6,14 @@ jobs:
         steps:
             - name: check out the code to build server
               uses: actions/checkout@v4
+            - name: Debug Secret Check
+              run: |
+                if [ -z "${{ secrets.SSH_KEY }}" ]; then
+                  echo "SECRET IS EMPTY"
+                  exit 1
+                else
+                  echo "SECRET IS DEFINED"
+                fi
             - name: copy file to server
               uses: appleboy/scp-action@master
               with:
